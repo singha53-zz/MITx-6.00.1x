@@ -28,14 +28,27 @@ while index2 <= len(s):
 print('Number of times bob occurs is: ', nBob)
 
 # longest substring of s
-s = 'azcbobobegghakl'
-i=0
-while i < len(s)-1:
-    substr = s[i]
-    i +=1
-    if s[i] > s[i-1]:
-        substr += s[i]
-    else:
-        substr = s[i]
-    print(substr)
+s = 'xaqkxlhgo'
+currStr = ''
+longStr = ''
+count = 1
+for i in range(len(s)):
+    if len(currStr) == 0:
+        currStr += s[i]
+    elif s[i] >= s[i-1]:
+        currStr += s[i]
+        count += 1
+    elif s[i] < s[i-1]:
+        if count > len(longStr):
+            longStr = currStr
+        currStr = s[i]
+        count = 1
+    if i == len(s) - 1:
+        if count > len(longStr):
+            longStr = currStr
+print('Longest substring in alphabetical order is: ', longStr)       
+
+    
+    
+
     
