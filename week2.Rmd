@@ -1,0 +1,85 @@
+---
+title: "week2"
+author: "Amrit Singh"
+date: '2019-02-11'
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# square root of a number 
+## linear search
+
+```{python}
+x = 25
+epsilon = 0.01
+step = 0.1
+guess = 0.0
+
+while guess <= x:
+    if abs(guess**2 -x) < epsilon:
+        break
+    else:
+        guess += step
+
+if abs(guess**2 - x) >= epsilon:
+    print('failed')
+else:
+    print('succeeded: ' + str(guess))
+```
+
+## bisection search
+
+```{python}
+x = 25
+low = 0
+high = x
+ans = (low+high)/2
+numGuesses = 0
+epsilon = 0.01
+
+while abs(ans**2 - x) >= epsilon:
+    print('low = ' + str(low) + ' high = ' + str(high) + ' ans = ' + str(ans))
+    numGuesses += 1
+    if ans**2 < x:
+        low = ans
+    else:
+        high = ans
+    ans = (high + low)/2.0
+print('numGuesses = ' + str(numGuesses))
+print(str(ans) + ' is close to square root of ' + str(x))
+
+```
+
+# Guess my number
+
+```{python}
+low = 0
+high = 100
+numGuesses = 0
+guess = (low + high)/2
+
+print("Please think of a number between 0 and 100!")
+
+for i in range(5):
+    print('Is your secret number ', guess, '?')
+    userinput = input("Enter 'h' to indicate the guess is too high. Enter 'l' to indicate the guess is too low. Enter 'c' to indicate I guessed correctly.")
+    if userinput == 'h':
+        high = guess
+        guess = (low + high)/2
+    elif userinput == 'l':
+        low == guess
+        guess = (low + high)/2
+    elif userinput == 'c':
+        print('Game over. Your secret number was: ', guess)
+        break
+    else:
+        print('Sorry, I did not understand your input.')
+
+
+```
+
