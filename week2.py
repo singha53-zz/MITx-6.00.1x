@@ -43,6 +43,7 @@ result = ''
 if num == 0:
     result == '0'
 while num > 0:
+    print(num, num % 2, num // 2)
     result = str(num % 2) + result
     num = num//2
 if isNeg:
@@ -61,3 +62,47 @@ while ((2**p)*x)%1 != 0:
 num = int(x*(2**p))
 
 result = ''
+if num == 0:
+    result = '0'
+while num > 0:
+    result = str(num%2) + result
+    num = num // 2
+
+for i in range(p - len(result)):
+    result = '0' + result
+    
+result = result[0:-p] + '.' + result[-p:]
+print('The binary representation of the decimal ' + str(x) + ' is ' + str(result))
+
+# square a number
+def square( num ):
+    '''
+    num: is an int or float
+    output: num * num
+    '''
+    num * num
+
+square(2)
+
+# SCOPE
+a = 10
+def f(x):
+    return x + a
+a = 3
+f(1)
+
+## OBJECTTS
+str2 = 'number one - the larch'
+str2 = str2.capitalize() 
+str2
+str2.swapcase()
+
+str1 = 'exterminate!'
+str1.index('e')
+
+str2.index('!')
+str2.find('!')
+
+
+
+
