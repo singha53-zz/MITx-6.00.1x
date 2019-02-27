@@ -103,6 +103,110 @@ str1.index('e')
 str2.index('!')
 str2.find('!')
 
+# Exercise: iter power
+def iterPower(base, exp):
+    '''
+    base: int or float.
+    exp: int >= 0
+ 
+    returns: int or float, base^exp
+    '''
+    result = 1
+    ## when exp is 0
+    if exp == 0:
+        result = 1
+    else:
+    ## computation of base^exp
+        while exp > 0:
+            result = result * base
+            exp -= 1
+    return result
+
+## Test cases:
+iterPower(5.71, 0)
+iterPower(-6.46, 5)
+iterPower(-1.67, 2)
+iterPower(-9.92, 10)
+
+# Exercise: power recur
+
+def recurPower(base, exp):
+    '''
+    base: int or float.
+    exp: int >= 0
+ 
+    returns: int or float, base^exp
+    '''
+    if exp == 0:
+        return 1
+    else:
+        return base * recurPower(base, exp-1)
+
+recurPower(5.71, 0)
+recurPower(-6.46, 5)
+
+# Exercise: gcd iter
+def gcdIter(a, b):
+    '''
+    a, b: positive integers
+    
+    returns: a positive integer, the greatest common divisor of a & b.
+    '''
+    divisor = min(a, b)
+    while divisor > 1:
+        if (a % divisor == 0) and (b % divisor == 0):
+            return divisor
+        else:
+            divisor -= 1
+        if divisor == 1:
+            return 1
+
+gcdIter(2, 12)
+gcdIter(6, 12)
+gcdIter(9, 12)
+gcdIter(17, 12)
+
+def gcdRecur(a, b):
+    '''
+    a, b: positive integers
+    
+    returns: a positive integer, the greatest common divisor of a & b.
+    '''
+    if b == 0:
+        return a
+    else:
+        return gcdRecur(b, a%b)
+
+gcdRecur(2, 12)
+gcdRecur(6, 12)
+gcdRecur(9, 12)
+gcdRecur(17, 12)
+
+# Exercise: is in
+def isIn(char, aStr):
+    '''
+    char: a single character
+    aStr: an alphabetized string
+    
+    returns: True if char is in aStr; False otherwise
+    '''
+    ## What happens when the string is empty?
+    ## What happens when the string is of length 1?
+    if len(aStr) <= 1:
+        return char == aStr
+    ## What happens when the test character equals the middle character?
+    mid = len(aStr)//2
+    if char == aStr[mid]:
+        return True
+    if char < aStr[mid]:
+        return isIn(char, aStr[:mid])
+    else:
+        return isIn(char, aStr[mid:])
+    
+isIn('q', 'bchkkmoqttuvv')
+
+
+
 
 
 
