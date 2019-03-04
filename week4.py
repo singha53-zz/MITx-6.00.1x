@@ -215,3 +215,145 @@ f(3)
 # return n
 # return 1
 
+# Exceptions and assertions
+## Q1
+def fancy_divide(numbers,index):
+    try:
+        denom = numbers[index]
+        for i in range(len(numbers)):
+            numbers[i] /= denom
+    except IndexError:
+        print("-1")
+    else:
+        print("1")
+    finally:
+        print("0")
+        
+fancy_divide([0, 2, 4], 1) # 1, 0
+fancy_divide([0, 2, 4], 4) # -1, 0
+fancy_divide([0, 2, 4], 0) # 0, error
+
+## Q2
+def fancy_divide(numbers, index):
+    try:
+        denom = numbers[index]
+        for i in range(len(numbers)):
+            numbers[i] /= denom
+    except IndexError:
+        fancy_divide(numbers, len(numbers) - 1)
+    except ZeroDivisionError:
+        print("-2")
+    else:
+        print("1")
+    finally:
+        print("0")
+
+fancy_divide([0, 2, 4], 1) # 1, 0
+fancy_divide([0, 2, 4], 4) # 1, 0, 0
+fancy_divide([0, 2, 4], 0) # -2, 0
+
+def fancy_divide(numbers, index):
+    try:
+        try:
+            denom = numbers[index]
+            for i in range(len(numbers)):
+                numbers[i] /= denom
+        except IndexError:
+            fancy_divide(numbers, len(numbers) - 1)
+        else:
+            print("1")
+        finally:
+            print("0")
+    except ZeroDivisionError:
+        print("-2")
+
+fancy_divide([0, 2, 4], 1) # 1, 0
+fancy_divide([0, 2, 4], 4) # 1, 0, 0
+fancy_divide([0, 2, 4], 0) # 0, -2
+
+def fancy_divide(list_of_numbers, index):
+    try:
+        try:
+            raise Exception("0")
+        finally:
+            denom = list_of_numbers[index]
+            for i in range(len(list_of_numbers)):
+                list_of_numbers[i] /= denom
+    except Exception as ex:
+        print(ex)
+
+## Does this code print 0 when you call fancy_divide([0, 2, 4], 0)
+fancy_divide([0, 2, 4], 0)
+## answer: no
+        
+def fancy_divide(list_of_numbers, index):
+    try:
+        try:
+            denom = list_of_numbers[index]
+            for i in range(len(list_of_numbers)):
+                list_of_numbers[i] /= denom
+        finally:
+            raise Exception("0")
+    except Exception as ex:
+        print(ex)
+        
+## Does this print 0 when you call fancy_divide([0, 2, 4], 0)
+fancy_divide([0, 2, 4], 0)
+## answer: yes
+
+## Exercise: simple divide
+def fancy_divide(list_of_numbers, index):
+   denom = list_of_numbers[index]
+   return [simple_divide(item, denom) for item in list_of_numbers]
+
+#def simple_divide(item, denom):
+#   return item / denom
+
+fancy_divide([0, 2, 4], 0)
+
+def simple_divide(item, denom):
+    try: 
+        return item / denom
+    except ZeroDivisionError:
+        return 0
+
+fancy_divide([0, 2, 4], 0)
+
+# Exercise 3
+def normalize(numbers):
+    max_number = max(numbers)
+    for i in range(len(numbers)):
+        numbers[i] /= float(max_number)
+    return numbers 
+
+try:
+      normalize([0, 0, 0])
+except ZeroDivisionError:
+      print('Invalid maximum element')
+
+## 1. Does the try block throw (also known as raise) an exception?, No
+## What is the name of the exception the code is trying to catch?
+## ZeroDivisionError
+## What is the output? Invalid maximum element
+## Since we are dividing by the maximum element in a list of positive
+## numbers, we know that normalize will return a value between 0 and 1. 
+## What type of condition is this? post condition
+## We also know the result is not meaningful when the maximum element is 0,
+## so we want to ensure that the numbers in the list do not violate this. 
+## What type of condition is this? pre condition
+
+def normalize(numbers):
+    max_number = max(numbers)
+    assert(max_number != 0), "Cannot divide by 0"
+    for i in range(len(numbers)):
+        numbers[i]  /= float(max_number)
+        assert(0.0 <= numbers[i] <= 1.0), "output not between 0 and 1"
+    return numbers        
+
+## Which condition does the line assert(max_number != 0) correspond to?
+## pre condition
+## Which condition does the line assert(0.0 <= numbers[i] <= 1.0) 
+## correspond to? post condition
+## What does the function call normalize([0, 0, 0]) print out?
+## Cannot divide by 0 (no quotes)
+
