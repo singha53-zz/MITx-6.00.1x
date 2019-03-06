@@ -71,10 +71,14 @@ def getWordScore(word, n):
     n: integer (HAND_SIZE; i.e., hand size required for additional points)
     returns: int >= 0
     """
-    # TO DO ... <-- Remove this comment when you code this function
-
-
-
+    score = 0
+    for letter in word:
+        score += SCRABBLE_LETTER_VALUES[letter]
+    score *= len(word)
+    if len(word) == n:
+        score += 50
+        
+    return score
 #
 # Problem #2: Make sure you understand how this function works and what it does!
 #
@@ -123,6 +127,9 @@ def dealHand(n):
         
     return hand
 
+hand = {'a':1, 'x':2, 'l':3, 'e':1}
+hand.get('b', 0)
+
 #
 # Problem #2: Update a hand by removing letters
 #
@@ -142,13 +149,49 @@ def updateHand(hand, word):
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
     """
-    # TO DO ... <-- Remove this comment when you code this function
+    filteredHand = hand.copy()
+    for letter in word:
+        filteredHand[letter] -= 1
+    return filteredHand
 
-
+hand = {'a':1, 'q':1, 'l':2, 'm':1, 'u':1, 'i':1}
+word = 'quail'
+updateHand(hand, word)
 
 #
 # Problem #3: Test word validity
 #
+# =============================================================================
+# def isValidWord(word, hand, wordList):
+#     """
+#     Returns True if word is in the wordList and is entirely
+#     composed of letters in the hand. Otherwise, returns False.
+# 
+#     Does not mutate hand or wordList.
+#    
+#     word: string
+#     hand: dictionary (string -> int)
+#     wordList: list of lowercase strings
+#     """
+#     # only start if hand is a dictionary
+#     if type(hand) == dict:
+#         hand2 = hand.copy()
+#         # check if hand has the letters of the word
+#         for letter in word:
+#             if letter in list(hand2.keys()):
+#                 if hand2[letter] != 0:
+#                     hand2 = updateHand(hand2, letter)
+#                 else:
+#                     return False
+#             else: 
+#                 return False
+#         # check if the word is in the wordlist
+#         return word in wordList
+#     else:
+#         return False
+# =============================================================================
+# can't use updateHand! use getFrequencyDict()
+        
 def isValidWord(word, hand, wordList):
     """
     Returns True if word is in the wordList and is entirely
@@ -160,8 +203,14 @@ def isValidWord(word, hand, wordList):
     hand: dictionary (string -> int)
     wordList: list of lowercase strings
     """
-    # TO DO ... <-- Remove this comment when you code this function
-
+    wordDic = getFrequencyDict(word)
+    for letter in wordDic.keys():
+        if letter in hand.keys():
+            if hand[letter] < wordDic[letter]:
+                return False
+        else:
+            return False
+    return word in wordList
 
 #
 # Problem #4: Playing a hand
@@ -174,7 +223,7 @@ def calculateHandlen(hand):
     hand: dictionary (string-> int)
     returns: integer
     """
-    # TO DO... <-- Remove this comment when you code this function
+    return sum(hand.values())
 
 
 
