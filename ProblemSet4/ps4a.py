@@ -127,8 +127,10 @@ def dealHand(n):
         
     return hand
 
-hand = {'a':1, 'x':2, 'l':3, 'e':1}
-hand.get('b', 0)
+# =============================================================================
+# hand = {'a':1, 'x':2, 'l':3, 'e':1}
+# hand.get('b', 0)
+# =============================================================================
 
 #
 # Problem #2: Update a hand by removing letters
@@ -258,12 +260,10 @@ def playHand(hand, wordList, n):
         displayHand(hand)
         # Ask user for input
         word = input("Enter word, or a '.' to indicate that you are finished:")
-        print(word)
         # If the input is a single period:
         if word == ".":
             # End the game (break out of the loop)
             return print("Goodbye! Total score: " + str(total_score) + " points.")
-            
         # Otherwise (the input is not a single period):
         else:
             # If the word is not valid:
@@ -283,12 +283,14 @@ def playHand(hand, wordList, n):
     print("Run out of letters. Total score: " + str(total_score) + " points.")
 
 
-wordList = loadWords()
-playHand({'w':1, 's':1, 't':2, 'a':1, 'o':1, 'f':1}, wordList, 7)
-
-wordList = loadWords()
-playHand({'w':1, 's':1, 't':2, 'a':1, 'o':1, 'f':1}, wordList, 7)
-
+# =============================================================================
+# wordList = loadWords()
+# playHand({'w':1, 's':1, 't':2, 'a':1, 'o':1, 'f':1}, wordList, 7)
+# 
+# wordList = loadWords()
+# playHand({'w':1, 's':1, 't':2, 'a':1, 'o':1, 'f':1}, wordList, 7)
+# 
+# =============================================================================
 #
 # Problem #5: Playing a game
 # 
@@ -321,7 +323,9 @@ def playGame(wordList):
             print("Invalid command.")
         cmd = input("Enter n to deal a new hand, r to replay the last hand, or e to end game:")
         
-playGame(wordList)
+# =============================================================================
+# playGame(wordList)
+# =============================================================================
 #
 # Build data structures used for entire session and play game
 #
