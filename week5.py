@@ -235,8 +235,46 @@ class D(C, B):
 obj = D()
 print(obj.a)
 
+# Generators
+def genTest():
+    yield 1
+    yield 2
+    
+foo = genTest()
+foo.__next__()
+foo.__next__()
+foo.__next__()
 
+def genFib():
+    fibn_1 = 1 #fib(n-1)
+    fibn_2 = 0 #fib(n-2)
+    while True:
+        # fib(n) = fib(n-1) + fib(n-2)
+        next = fibn_1 + fibn_2
+        yield next
+        fibn_2 = fibn_1
+        fibn_1 = next
 
+fib = genFib()
+fib.__next__()
+
+# Exercise: genPrimes
+# Write a generator, genPrimes, that returns the sequence of prime numbers
+# on successive calls to its next() method: 2, 3, 5, 7, 11, ...
+
+def genPrimes():
+    p = [2]
+    yield p[0]
+    x = 3
+    while True:
+        if all(x % prime != 0 for prime in p):
+            next = x
+            yield next
+            p.append(next)
+        x += 1
+
+prime = genPrimes()
+prime.__next__()
 
 
 
