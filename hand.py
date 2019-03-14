@@ -82,8 +82,17 @@ class Hand(object):
         word: string
         returns: Boolean (if the word was or was not made)
         """
-        # Your code here
-        raise NotImplementedError()
+        sum = 0
+        for letter in word:
+            if letter in self.hand.keys():
+                sum += 1
+        if sum == len(word):
+            for letter in word:
+                self.hand[letter] -= 1
+            return True
+        else:
+            return False
+                
 
     
 myHand = Hand(7)
