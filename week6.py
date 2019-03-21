@@ -368,7 +368,215 @@ def unionNew(L1, L2):
    return temp + L2
 # n^2
 
+# Searching and Sorting Algorithms
+## Exercise 1
+# =============================================================================
+# In computer programming, indirection (also called "dereferencing") 
+# is the ability to reference something using a name, reference, 
+# or container instead of the value itself. The most common form 
+# of indirection is the act of manipulating a value through its 
+# memory address.
+# =============================================================================
+a = [1, 2, 3, 4, 0]
+b = [3, 0, 2, 4, 1]
+c = [3, 2, 4, 1, 5]
 
+# =============================================================================
+# What is the value of the following expressions? 
+# If you think there will be an error, please type in 'error' 
+# (without quotes) in the input box.
+# =============================================================================
+a[0] ## 1
+b[1] ## 0
+a[a[1]] ## 3
+b[b[2]] ## 2
+a[b[2]] ## 3
+c[a[b[3]]] ## 3
+a[c[a[b[0]]]] ## error
+a[c[a[b[3]]]] ## 4
+
+def foo(L):
+    val = L[0]
+    while (True):
+        val = L[val]
+# Which of the following statement(s) will result in an infinite loop?
+## val changes depending on L[val];
+## foo(a) and foo(b) keep going whereas foo(c) results in an error
+
+num = ???
+L = [5, 0, 2, 4, 6, 3, 1]
+val = 0
+for i in range(0, num):
+    val = L[L[val]]
+
+print(val)
+# What is the smallest value that num can be such that the number 3 is printed?
+# value of val is being changed inside a for loop
+# L[0] = 5
+## L[5] = 5
+# num should be 0
+
+L = [2, 0, 1, 5, 3, 4]
+# same as above
+
+# Exercise 2
+## assuming L is sorted:
+def search(L, e):
+    for i in range(len(L)):
+        if L[i] == e:
+            return True
+        if L[i] > e:
+            return False
+    return False
+
+## alternative version of search
+def search1(L, e):
+    for i in L:
+        if i == e:
+            return True
+        if i > e:
+            return False
+    return False
+
+## do the same thing
+   
+# Exercise 3
+def search2(L, e):
+    for i in L:
+        if i == e:
+            return True
+        elif i > e:
+            return False
+    return False
+## do the same thing
+    
+# Exercise 4
+def search3(L, e):
+    if L[0] == e:
+        return True
+    elif L[0] > e:
+        return False
+    else:
+        return search3(L[1:], e)
+# search and search3 return the same answers provided 
+# L is non-empty and e is in L.
+
+# Exercise 5
+## Here is the code for selection sort. For simplicity, assume L is a list of integers:
+def selSort(L):
+    for i in range(len(L) - 1):
+        minIndx = i
+        minVal = L[i]
+        j = i+1
+        while j < len(L):
+            if minVal > L[j]:
+                minIndx = j
+                minVal = L[j]
+            j += 1
+        if minIndx != i:
+            temp = L[i]
+            L[i] = L[minIndx]
+            L[minIndx] = temp
+            
+def newSort(L):
+    for i in range(len(L) - 1):
+        j=i+1
+        while j < len(L):
+            if L[i] > L[j]:
+                temp = L[i]
+                L[i] = L[j]
+                L[j] = temp
+            j += 1
+
+L = [23, 0, 74, 652, 3]
+selSort(L); L
+L = [23, 0, 74, 652, 3]
+newSort(L); L
+
+## Do these two functions result in the same sorted lists? Yes
+## Do these two functions execute the same number of assignments of 
+## values into entries of the lists?
+## No. newSort may use more - but never fewer - inserts than selSort. 
+## Is the worst-case order of growth of these functions the same?
+## Yes. newSort and selSort have the same complexity.
+
+# Exercise 6
+def mySort(L):
+    """ L, list with unique elements """
+    clear = False
+    while not clear:
+        clear = True
+        for j in range(1, len(L)):
+            if L[j-1] > L[j]:
+                clear = False
+                temp = L[j]
+                L[j] = L[j-1]
+                L[j-1] = temp
+
+def newSort(L):
+    """ L, list with unique elements """
+    for i in range(len(L) - 1):
+        j=i+1
+        while j < len(L):
+            if L[i] > L[j]:
+                temp = L[i]
+                L[i] = L[j]
+                L[j] = temp
+            j += 1
+
+L = [23, 0, 74, 652, 3]
+mySort(L); L
+L = [23, 0, 74, 652, 3]
+newSort(L); L
+
+## Do these two functions result in the same sorted lists? Yes
+## Do these two functions execute the same number of assignments of 
+## values into entries of the lists?
+## Yes. They execute the same number of assignments.
+## Is the worst-case order of growth of these functions the same?
+## Yes. newSort and mySort have the same complexity.
+## Do these two functions examine the same number of entries in the list?
+## No. mySort and newSort examine different numbers of entries, but 
+## one cannot always say which function will examine the most entries. 
+
+# Exercise 7
+## L is a list with n items
+## Application A: Every time it's asked to, it performs a linear search 
+##                through list L to find whether it contains x.
+## Application B: Sort list L once before doing anything else 
+##                (using mergeSort). Whenever it's asked to find x in L, 
+##                it performs a binary search on L.
+
+## 1. If the application is asked to find x in L exactly one time, 
+## what is the worst case time complexity for Application A?
+## O(n)
+## 2. If the application is asked to find x in L exactly one time, 
+## what is the worst case time complexity for Application B?
+## mergesort + binary ~ O(nlogn) + O(logn) ~ O(nlogn)
+## 3. If the application is asked to find x in L k times, what is the worst 
+## case time complexity for Application A?
+## O(kn)
+## 4. If the application is asked to find x in L k times, what is the 
+## worst case time complexity for Application B?
+## mergesort + k*binary ~ O(nlogn) + k*O(logn)
+## 5. What value(s) of k would make Application A be faster 
+## (i.e., asymptotically grow slower than) Application B?
+## O(nlogn) + k*O(logn) < k*O(n) ; k = 1
+## When k = 1, Application A's complexity is O(kn)=O(n), 
+## and Application B's complexity is O(nlogn + klogn) = O(nlogn + logn).
+## Setting k at any value greater than 1 makes O(kn) asymptotically grow 
+## faster than O(nlogn + klogn).
+## What value(s) of k would make Application A grow at the same rate 
+## as Application B?
+## O(nlogn) + k*O(logn) < k*O(n) ; k = logn
+## When k=logn, Application A's complexity is O(kn)=O(nlogn), 
+## and Application B's complexity is O(nlogn + klogn) = O(nlogn + lognlogn).
+## lognlogn  grows slower than nlogn, so in this case Application B's time 
+## complexity is O(nlogn). So, when , the order of time complexity of 
+## Applications A and B are equal.
+## Which application should you choose if you know that there are going 
+## to be requests to find x in L?
+## for many searches sorting first wins! Application B (amortization cost)
 
 
 
